@@ -20,9 +20,15 @@ jobs:
           path: ./flows/starter.json
         
       - name: Send HTTP Request
+        id: myRequest
         uses: fjogeleit/http-request-action@v1
         with:
           method: POST
           url: https://httpbin.org/anything
           customHeaders: '{"Content-Type": "application/json"}'
           data: ${{ steps.read_json.outputs.content }}
+
+      - name: Show Response
+        run: |
+          echo ${{ steps.myRequest.outputs.response }}
+          echo ${{ steps.myRequest.outputs.headers }}
