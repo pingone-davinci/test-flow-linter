@@ -18,6 +18,9 @@ jobs:
       run: |
         for changed_file in ${{ steps.files.outputs.added_modified }}; do
           echo ${changed_file}
+          cat ${changed_file}
+          echo ${steps.files.outputs.added_modified[0]}
+          cat ${steps.files.outputs.added_modified[0]}
           echo "::set-output name=file_contents::$(cat ${changed_file})"
         done
 
@@ -28,7 +31,7 @@ jobs:
         url: 'http://35.167.90.132:8000/linter/lint-flow-json'
         method: 'POST'
         customHeaders: '{"Content-Type": "application/json"}'
-        data: '{ "flowJSON": ${{ steps.read_json.outputs.file_contents }} }'
+        data: '{ "flowJSON": $(cat ${steps.files.outputs.added_modified[0]}) }'
     
     - name: Show Response
       run: |
