@@ -17,7 +17,7 @@ jobs:
       - name: Find last modified file
         id: findFile
         run: |
-          LAST_MODIFIED_FILE=$(git diff-tree --no-commit-id --name-only -r $(git rev-parse HEAD) | sort -r | head -n 1)
+          LAST_MODIFIED_FILE="flows/starter.json"
           echo "LAST_MODIFIED_FILE = $LAST_MODIFIED_FILE"
           echo "::set-output name=lastModifiedFile::$LAST_MODIFIED_FILE"
 
