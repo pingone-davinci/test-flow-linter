@@ -1,5 +1,4 @@
-
-name: Post Last Modified File Contents
+name: Send JSON via HTTP Request
 
 on:
   push:
@@ -7,30 +6,22 @@ on:
       - main
 
 jobs:
-  postContents:
+  send_json:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Find last modified file
-        id: findFile
-        run: |
-          LAST_MODIFIED_FILE="flows/starter.json"
-          echo "LAST_MODIFIED_FILE = $LAST_MODIFIED_FILE"
-          echo "::set-output name=lastModifiedFile::$LAST_MODIFIED_FILE"
-
-      - name: Read file contents
-        id: readFile
-        run: |
-          cat ${{ steps.findFile.outputs.lastModifiedFile }}
-          FILE_CONTENTS=$(cat ${{ steps.findFile.outputs.lastModifiedFile }})
-          echo "::set-output name=fileContents::$FILE_CONTENTS"
-
-      - name: Post file contents
-        id: postContents
-        run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"file_contents": "${{ steps.readFile.outputs.fileContents }}"}' https://httpbin.org/anything
-
-
+      - name: Read JSON file
+        id: read_json
+        uses: actions/read-file@v1
+        with:
+          path: flows/starter.json
+      
+      - name: Send HTTP Request
+        uses: peter-evans/http-request-action@v2
+        with:
+          method: POST
+          url: https://httpbin.org/anything
+          body: ${{ steps.read_json.outputs.content }}
