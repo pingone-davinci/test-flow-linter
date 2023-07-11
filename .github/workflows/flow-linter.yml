@@ -1,4 +1,4 @@
-name: Send JSON via HTTP Request
+name: Send JSON via HTTP Request Test
 
 on:
   push:
