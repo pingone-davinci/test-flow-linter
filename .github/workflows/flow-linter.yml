@@ -18,11 +18,13 @@ jobs:
         id: findFile
         run: |
           LAST_MODIFIED_FILE=$(git diff-tree --no-commit-id --name-only -r $(git rev-parse HEAD) | sort -r | head -n 1)
+          echo "LAST_MODIFIED_FILE = $LAST_MODIFIED_FILE"
           echo "::set-output name=lastModifiedFile::$LAST_MODIFIED_FILE"
 
       - name: Read file contents
         id: readFile
         run: |
+          cat ${{ steps.findFile.outputs.lastModifiedFile }}
           FILE_CONTENTS=$(cat ${{ steps.findFile.outputs.lastModifiedFile }})
           echo "::set-output name=fileContents::$FILE_CONTENTS"
 
