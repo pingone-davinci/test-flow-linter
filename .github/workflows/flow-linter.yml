@@ -4,6 +4,12 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
+    
+    - name: Checkout test-flow-linter
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+          
     - id: files
       uses: jitterbit/get-changed-files@v1
       
@@ -11,6 +17,7 @@ jobs:
       id: read_json
       run: |
         for changed_file in ${{ steps.files.outputs.added_modified }}; do
+          echo ${changed_file}
           echo "::set-output json=file_contents::$(cat ${changed_file})"
         done
 
