@@ -18,9 +18,6 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./flows/starter.json
-      
-      - name: Echo package.json
-        run: echo "${{ steps.read_json.outputs.content }}"
         
       - name: Send HTTP Request
         uses: fjogeleit/http-request-action@v1
