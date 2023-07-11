@@ -11,17 +11,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Read JSON file
         id: read_json
-        uses: actions/read-file@v1
+        uses: juliangruber/read-file-action@v1
         with:
-          path: flows/starter.json
+          path: ./flows/starter.json
       
+      - name: Echo package.json
+        run: echo "${{ steps.read_json.outputs.content }}"
+        
       - name: Send HTTP Request
-        uses: peter-evans/http-request-action@v2
+        uses: fjogeleit/http-request-action@v1
         with:
           method: POST
           url: https://httpbin.org/anything
-          body: ${{ steps.read_json.outputs.content }}
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: ${{ steps.read_json.outputs.content }}
