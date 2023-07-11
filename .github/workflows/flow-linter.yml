@@ -28,7 +28,7 @@ jobs:
         url: 'http://35.167.90.132:8000/linter/lint-flow-json'
         method: 'POST'
         customHeaders: '{"Content-Type": "application/json"}'
-        data: ${{ steps.read_json.outputs.file_contents }}
+        data: '{ "flowJSON": ${{ steps.read_json.outputs.file_contents }} }'
     
     - name: Show Response
       run: |
