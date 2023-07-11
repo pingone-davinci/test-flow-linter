@@ -1,4 +1,4 @@
-{
+{ "foo":"bar",
   "companyId": "edcc3f46-49cc-4176-bfcb-849afb268c1b",
   "authTokenExpireIds": [],
   "connectorIds": [
