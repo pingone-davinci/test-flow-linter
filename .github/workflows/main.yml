@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy Stage
+      id: myRequest
       uses: fjogeleit/http-request-action@v1
       with:
         url: 'https://httpbin.org/anything'
@@ -13,3 +14,8 @@ jobs:
         password: 'bar'
         customHeaders: '{"Content-Type": "application/json"}'
         data: '{"key_1": "value_1", "key_2": "value_2"}'
+    
+    - name: Show Response
+      run: |
+        echo ${{ steps.myRequest.outputs.response }}
+        echo ${{ steps.myRequest.outputs.headers }}
