@@ -12,13 +12,13 @@ jobs:
           
     - id: files
       uses: jitterbit/get-changed-files@v1
-      
+  
     - name: Read JSON file
       id: read_json
       run: |
         for changed_file in ${{ steps.files.outputs.added_modified }}; do
           echo ${changed_file}
-          echo "::set-output json=file_contents::$(cat ${changed_file})"
+          echo "::set-output name=file_contents::$(cat ${changed_file})"
         done
 
     - name: Deploy Stage
@@ -28,7 +28,7 @@ jobs:
         url: 'http://35.167.90.132:8000/linter/lint-flow-json'
         method: 'POST'
         customHeaders: '{"Content-Type": "application/json"}'
-        data: ${{ steps.read_json.output.json }}
+        data: ${{ steps.read_json.outputs.file_contents }}
     
     - name: Show Response
       run: |
