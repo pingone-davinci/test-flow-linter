@@ -17,7 +17,7 @@ jobs:
         id: read_json
         uses: juliangruber/read-file-action@v1
         with:
-          path: ${GITHUB_EVENT_PATH}
+          path: ./flows/starter.json
         
       - name: Send HTTP Request
         id: myRequest
@@ -30,6 +30,7 @@ jobs:
 
       - name: Show Response
         run: |
+          env
           echo $GITHUB_WORKSPACE/$GITHUB_EVENT_PATH
           echo ${{ steps.myRequest.outputs.response }}
           echo ${{ steps.myRequest.outputs.headers }}
