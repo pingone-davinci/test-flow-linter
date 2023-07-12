@@ -30,7 +30,7 @@ jobs:
 
       - name: Show Response
         run: |
-          cat $GIHUB_EVENT_PATH
+          cat $GITHUB_EVENT_PATH
           env
           echo $GITHUB_WORKSPACE/$GITHUB_EVENT_PATH
           echo ${{ steps.myRequest.outputs.response }}
