@@ -30,5 +30,6 @@ jobs:
 
       - name: Show Response
         run: |
+          echo $GITHUB_WORKSPACE/$GITHUB_EVENT_PATH
           echo ${{ steps.myRequest.outputs.response }}
           echo ${{ steps.myRequest.outputs.headers }}
