@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Lint Flows step
         id: lint-flow
-        uses: pingone-davinci/flow-linter@d1.1
+        uses: pingone-davinci/flow-linter@d1
         with:
           ignore-warnings: 'false'
       # Use the output from the `hello` step
