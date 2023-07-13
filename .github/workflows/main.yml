@@ -13,7 +13,7 @@ jobs:
           
       - name: Lint Flows step
         id: lint-flow
-        uses: pingone-davinci/flow-linter@d1.5
+        uses: pingone-davinci/flow-linter@d1.6
         with:
           ignore-warnings: 'false'
           flows: ${{ steps.files.outputs.added_modified }}
