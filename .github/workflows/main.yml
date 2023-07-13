@@ -17,10 +17,12 @@ jobs:
           
       - name: Lint Flows step
         id: lint-flow
-        uses: pingone-davinci/flow-linter@d1.3
+        uses: pingone-davinci/flow-linter@d1.4
         with:
           ignore-warnings: 'false'
           flows: "${{ steps.chnaged-files.ouptuts.changed_files }}"
       # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "Pass = ${{ steps.lint-flow.outputs.pass }}"
+      - name: Get lint flows results
+        run: |
+          echo "pass = ${{ steps.lint-flow.outputs.pass }}"
+          echo "raw-results = ${{ steps.lint-flow.outputs.raw-results }}"
