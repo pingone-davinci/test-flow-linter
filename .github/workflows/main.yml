@@ -12,7 +12,7 @@ jobs:
         id: changed-files
         run: |
           git fetch origin ${{ github.base_ref }}
-          changed_files=$(git diff --name-only ${GITHUB_BASE_REF:-main}...${{ github.sha }})
+          changed_files=$(git diff --name-only main...${{ github.sha }})
           echo "$changed_files"
           
       - name: Lint Flows step
