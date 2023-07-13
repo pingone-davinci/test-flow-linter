@@ -20,7 +20,7 @@ jobs:
         uses: pingone-davinci/flow-linter@d1.4
         with:
           ignore-warnings: 'false'
-          flows: "${{ steps.chnaged-files.ouptuts.changed_files }}"
+          flows: "${{ steps.changed-files.ouptuts.changed_files }}"
       # Use the output from the `hello` step
       - name: Get lint flows results
         run: |
