@@ -10,16 +10,22 @@ jobs:
 
       - name: Get Changed Files
         id: changed-files
-        run: |
-          access_token=${{ secrets.GITHUB_TOKEN }}
-          base_commit=$(curl -s -H "Authorization: Bearer $access_token" \
-            "https://api.github.com/repos/${{ github.repository }}/commits/${{ github.base_ref }}" | \
-            jq -r '.sha')
-          changed_files=$(curl -s -H "Authorization: Bearer $access_token" \
-            "https://api.github.com/repos/${{ github.repository }}/compare/$base_commit...${{ github.sha }}" | \
-            jq -r '.files[].filename')
-          echo "Changed Files:"
-          echo "$changed_files"
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = await github.repos.compareCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: context.payload.before,
+              head: context.payload.after
+            });
+
+            const changedFiles = response.data.files.map(file => file.filename);
+            console.log("Changed Files:");
+            console.log(changedFiles);
+            core.setOutput('changed_files', changedFiles.join('\n'));
+
           
       - name: Lint Flows step
         id: lint-flow
