@@ -11,6 +11,11 @@ jobs:
       - id: files
         uses: jitterbit/get-changed-files@v1
           
+      - name: Env
+        run: |
+          env
+          git status
+          
       - name: Lint Flows step
         id: lint-flow
         uses: pingone-davinci/flow-linter@d1.0
