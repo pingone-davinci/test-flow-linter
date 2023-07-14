@@ -21,7 +21,7 @@ jobs:
         uses: pingone-davinci/flow-linter@d1.0
         with:
           ignore-warnings: 'false'
-          flows: "${GITHUB_WORKSPACE}/${{ steps.files.outputs.added_modified }}"
+          flows: "/home/runner/work/test-flow-linter/test-flow-linter/${{ steps.files.outputs.added_modified }}"
   
       - name: Get lint flows results
         run: |
