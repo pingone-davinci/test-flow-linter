@@ -10,19 +10,18 @@ jobs:
 
       - id: files
         uses: jitterbit/get-changed-files@v1
-          
+
       - name: Env
         run: |
           env
           git status
-          
+
       - name: Lint Flows step
         id: lint-flow
         uses: pingone-davinci/flow-linter@d1.3
         with:
-          ignore-warnings: 'false'
-          flows: "/home/runner/work/test-flow-linter/test-flow-linter/${{ steps.files.outputs.added_modified }}"
-  
+          flow: "/home/runner/work/test-flow-linter/test-flow-linter/${{ steps.files.outputs.added_modified }}"
+
       - name: Get lint flows results
         run: |
           echo "pass = ${{ steps.lint-flow.outputs.pass }}"
