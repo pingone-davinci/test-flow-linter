@@ -16,11 +16,17 @@ jobs:
           env
           git status
 
+      - name: Read json file
+        id: getjson
+        run: cat "${{ steps.files.outputs.added_modified }}"
+
+        run: echo "::set-output name=flow::$(cat ${{ steps.files.outputs.added_modified }})"
+
       - name: Lint Flows step
         id: lint-flow
-        uses: pingone-davinci/flow-linter@d1.4
+        uses: pingone-davinci/flow-linter@d1.5
         with:
-          flow: "/home/runner/work/test-flow-linter/test-flow-linter/${{ steps.files.outputs.added_modified }}"
+          flow: "${{ steps.getjson.outputs.flow }}"
 
       - name: Get lint flows results
         run: |
