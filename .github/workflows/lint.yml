@@ -18,8 +18,6 @@ jobs:
 
       - name: Read json file
         id: getjson
-        run: cat "${{ steps.files.outputs.added_modified }}"
-
         run: echo "::set-output name=flow::$(cat ${{ steps.files.outputs.added_modified }})"
 
       - name: Lint Flows step
